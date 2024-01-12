@@ -33,6 +33,8 @@ RUN \
   ./aws/install --bin-dir /usr/bin && \
   rm -r awscli.zip aws/
 
+RUN mamba install -y -c bioconda -c conda-forge snakemake
+
 # Install GPL pipeline
 RUN \
   git clone https://github.com/pbousquets/gridss-purple-linx-nf /opt/gpl_pipeline/pipeline/ && \
@@ -44,7 +46,5 @@ COPY lambdas/layers/util/ /tmp/util/
 RUN \
   pip install --no-cache-dir /tmp/runtime/ /tmp/util/ && \
   rm -r /tmp/runtime/ /tmp/util/
-
-RUN mamba install -y -c bioconda -c conda-forge snakemake
 
 ENV PATH="/opt/gpl_pipeline:${PATH}"
