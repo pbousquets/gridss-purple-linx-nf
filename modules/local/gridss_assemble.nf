@@ -19,9 +19,9 @@ process ASSEMBLE {
   # NOTE: for reasons that elude me, NF doesn't always stage in the workingdir; remove if it is present
   mkdir -p "${output_dir}/work/"
   lndir \$(readlink -f "${gridss_preprocessed}/") "${output_dir}/work"
-  if [[ -L "${gridss_preprocessed.name}" ]]; then
-    rm "${gridss_preprocessed}"
-  fi
+  #if [[ -L "${gridss_preprocessed.name}" ]]; then
+  #  rm "${gridss_preprocessed}"
+  #fi
   # Run
   gridss \
     --jvmheap "${params.mem_gridss}" \
