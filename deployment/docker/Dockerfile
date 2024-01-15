@@ -48,3 +48,5 @@ RUN \
   rm -r /tmp/runtime/ /tmp/util/
 
 ENV PATH="/opt/gpl_pipeline:${PATH}"
+
+ENTRYPOINT [ "nextflow", "run" ]
