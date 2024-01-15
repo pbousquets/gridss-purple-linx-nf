@@ -15,6 +15,7 @@ RUN \
   -c conda-forge \
   -c defaults \
   'bcftools ==1.14' \
+  'samtools ==1.14' \
   boto3 \
   nextflow \
   'r-gpgr ==1.3.1' \
@@ -23,7 +24,8 @@ RUN \
   # r-lifecycle >= 1.0.3, and r-rmarkdown ==2.14
   'r-cli >=3.4.0' \
   'r-lifecycle >=1.0.3' \
-  'r-rmarkdown ==2.14' && \
+  'r-rmarkdown ==2.14' \
+  snakemake && \
   mamba clean --all --force-pkgs-dirs --yes
 
 # Install AWS CLI v2, appears to only be available through direct download
@@ -33,13 +35,11 @@ RUN \
   ./aws/install --bin-dir /usr/bin && \
   rm -r awscli.zip aws/
 
-RUN mamba install -y -c bioconda -c conda-forge snakemake
 
 # Install GPL pipeline
 RUN \
   git clone https://github.com/pbousquets/gridss-purple-linx-nf /opt/gpl_pipeline/pipeline/ && \
-  cd /opt/gpl_pipeline/pipeline/ && \
-  rm -rf .git/ .gitignore deployment/ *.md Dockerfile
+  rm -rf .git/ .gitignore deployment/ *.md Dockerfile /opt/gpl_pipeline/pipeline/nextflow.config
 COPY assets/run_gpl.py /opt/gpl_pipeline/
 COPY lambdas/layers/runtime/ /tmp/runtime/
 COPY lambdas/layers/util/ /tmp/util/
