@@ -28,13 +28,6 @@ RUN \
   snakemake && \
   mamba clean --all --force-pkgs-dirs --yes
 
-# Install AWS CLI v2, appears to only be available through direct download
-RUN \
-  wget -O awscli.zip 'https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' && \
-  unzip awscli.zip && \
-  ./aws/install --bin-dir /usr/bin && \
-  rm -r awscli.zip aws/
-
 
 # Install GPL pipeline
 RUN \
